@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>母亲节快乐</title>
+<style>
+/* ================== 全局基础样式 ================== */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #fff0f5;
+    color: #333;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+section {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 5% 5%;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+img {
+    max-width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+img:active {
+    transform: scale(0.98);
+}
+
+h1, h2, p {
+    margin: 10px 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #f08080;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #d2691e;
+}
+
+p {
+    font-size: 1em;
+    line-height: 1.6em;
+    color: #555;
+}
+
+/* ================== 封面 ================== */
+#cover {
+    background: linear-gradient(to bottom, #ffe4e1, #fff0f5);
+    text-align: center;
+}
+
+#cover .scroll-down {
+    position: absolute;
+    bottom: 20px;
+    font-size: 1em;
+    color: #f08080;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+}
+
+/* ================== 手写信特效 ================== */
+.letter {
+    background: #fff8dc;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 90%;
+    margin: 20px 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.5em;
+}
+
+.letter::before, .letter::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #fff8dc;
+    top: -10px;
+    left: -10px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.letter.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 80%;
+    padding: 25px;
+    font-size: 1.2em;
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+/* ================== 尾页爱心跳动 ================== */
+#heart {
+    font-size: 3em;
+    color: #f08080;
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {transform: scale(1);}
+    50% {transform: scale(1.3);}
+}
+
+/* ================== 花瓣动画 ================== */
+.petals {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.petal {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: pink;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+    0% {transform: translateY(-10px) rotate(0deg);}
+    100% {transform: translateY(110vh) rotate(360deg);}
+}
+
+/* ================== Lightbox ================== */
+#lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+#lightbox .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 1001;
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- ================== 花瓣层 ================== -->
+<div class="petals" id="petals"></div>
+
+<!-- ================== 封面 ================== -->
+<section id="cover" class="visible">
+    <h1>母亲节快乐</h1>
+    <h2>致我最爱的妈妈</h2>
+    <div class="scroll-down">⬇️ 向下滑动</div>
+</section>
+
+<!-- ================== 第一章：你的光芒 ================== -->
+<section>
+    <!-- 照片1：海边张开双臂 -->
+    <img src="./images/1.jpg" alt="你的光芒">
+    <h2>你的光芒</h2>
+    <p>妈妈，你就像海边的阳光，温暖而自由，照亮了我生命的每一个角落。</p>
+</section>
+
+<!-- ================== 第二章：少女心 ================== -->
+<section>
+    <!-- 照片2：城堡前 -->
+    <img src="./images/2.jpg" alt="少女心">
+    <h2>少女心</h2>
+    <p>无论岁月如何流转，你永远保持着童话般的优雅与年轻的心。</p>
+</section>
+
+<!-- ================== 第三章：岁月静好 ================== -->
+<section>
+    <!-- 照片3：湖边合影 -->
+    <img src="./images/3.jpg" alt="岁月静好">
+    <h2>岁月静好</h2>
+    <p>感谢你的陪伴，让平凡的日子因亲情而温暖而美好。</p>
+</section>
+
+<!-- ================== 第四章：烟火日常 ================== -->
+<section>
+    <!-- 照片4：户外洗车 -->
+    <img src="./images/4.jpg" alt="烟火日常">
+    <h2>烟火日常</h2>
+    <p>你的生活朴实却充满温暖，每一件小事都是爱的表达。</p>
+</section>
+
+<!-- ================== 第五章：时光信笺 ================== -->
+<section>
+    <!-- 照片5：手写信 -->
+    <div class="letter" id="letter">
+        <img src="./images/5.jpg" alt="时光信笺">
+        <p>2014年的那封信，我一直记得。你的每一句话都深深刻在我的心里，成为我前行的动力。</p>
+    </div>
+</section>
+
+<!-- ================== 第六章：如今的我 ================== -->
+<section>
+    <!-- 照片6：母子合影 -->
+    <img src="./images/6.jpg" alt="如今的我">
+    <h2>如今的我</h2>
+    <p>在你的陪伴下，我逐渐成长。今天，我想对你说一声：谢谢妈妈，我爱你！</p>
+</section>
+
+<!-- ================== 尾页 ================== -->
+<section>
+    <p style="font-family: cursive; font-size: 1.5em;">祝你母亲节快乐！</p>
+    <p style="font-family: cursive; font-size: 1.2em;">爱你的儿子</p>
+    <div id="heart">❤️</div>
+</section>
+
+<!-- ================== 图片预览 Lightbox ================== -->
+<div id="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="预览">
+</div>
+
+<script>
+// ================== 花瓣飘落动画 ==================
+(function() {
+    var petalsContainer = document.getElementById('petals');
+    var petalCount = 20;
+    for (var i = 0; i < petalCount; i++) {
+        var petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        petal.style.animationDelay = Math.random() * 5 + 's';
+        petal.style.opacity = Math.random() * 0.5 + 0.3;
+        petal.style.width = (Math.random() * 8 + 6) + 'px';
+        petal.style.height = petal.style.width;
+        petalsContainer.appendChild(petal);
+    }
+})();
+
+// ================== 滚动淡入动画 ==================
+(function() {
+    var sections = document.querySelectorAll('section');
+    function checkVisible() {
+        for (var i = 0; i < sections.length; i++) {
+            var rect = sections[i].getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.85) {
+                sections[i].classList.add('visible');
+            }
+        }
+    }
+    window.addEventListener('scroll', checkVisible);
+    checkVisible();
+})();
+
+// ================== Lightbox 图片预览 ==================
+function openLightbox(src) {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = src;
+    lightbox.style.display = 'flex';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+
+// 给所有图片绑定点击事件
+(function() {
+    var images = document.querySelectorAll('section img');
+    for (var i = 0; i < images.length; i++) {
+        images[i].addEventListener('click', function() {
+            if (this.src && this.src !== '') {
+                openLightbox(this.src);
+            }
+        });
+    }
+})();
+
+// 点击 lightbox 背景关闭
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLightbox();
+    }
+});
+
+// ================== 手写信点击放大 ==================
+document.getElementById('letter').addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') return;
+    this.classList.toggle('fullscreen');
+});
+</script>
+
+</body>
+</html>
